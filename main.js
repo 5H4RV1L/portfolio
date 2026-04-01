@@ -224,7 +224,6 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     nextBtn.addEventListener('click', () => { index = (index + 1) % cards.length; updateCarousel(); });
     prevBtn.addEventListener('click', () => { index = (index - 1 + cards.length) % cards.length; updateCarousel(); });
 
-    // Swipe support
     let startX = 0;
     container.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
     container.addEventListener('touchend',   e => {
@@ -281,9 +280,6 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     });
 })();
 
-/* ============================================================
-   HEX DECORATION TOOLTIPS
-   ============================================================ */
 (function initHexTooltips() {
     const tooltip = document.getElementById('hex-tooltip');
     const label   = document.getElementById('ht-label');
@@ -337,9 +333,6 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     });
 })();
 
-/* ============================================================
-   BACK TO TOP BUTTON
-   ============================================================ */
 (function initBackToTop() {
     const btn = document.getElementById('back-to-top');
     if (!btn) return;
@@ -353,12 +346,6 @@ document.querySelectorAll('.carousel-container').forEach(container => {
     });
 })();
 
-/* ============================================================
-   CONTACT FORM  —  Formspree Option A
-   1. Go to formspree.io, create a free form
-   2. Copy your form ID (e.g. 'xpwzgkqr')
-   3. Paste it below in place of YOUR_FORM_ID
-   ============================================================ */
 (function initContactForm() {
     const FORMSPREE_ID = 'xgopabng';
 
@@ -375,7 +362,6 @@ document.querySelectorAll('.carousel-container').forEach(container => {
         const msg     = document.getElementById('f-msg').value.trim();
         const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        // Client-side validation
         if (!name)                { errEl.textContent = '// ERROR: NAME field is empty';     return; }
         if (!emailRe.test(email)) { errEl.textContent = '// ERROR: invalid EMAIL address';   return; }
         if (!msg)                 { errEl.textContent = '// ERROR: MESSAGE cannot be empty'; return; }
@@ -394,11 +380,9 @@ document.querySelectorAll('.carousel-container').forEach(container => {
             });
 
             if (res.ok) {
-                // Show terminal success screen
                 document.getElementById('form-view').style.display = 'none';
                 success.style.display = 'block';
             } else {
-                // Formspree returned an error (e.g. form not activated yet)
                 const data = await res.json().catch(() => ({}));
                 const hint = data.error || 'server rejected the request';
                 errEl.textContent = `// ERROR: ${hint}`;
@@ -406,7 +390,6 @@ document.querySelectorAll('.carousel-container').forEach(container => {
                 btn.disabled      = false;
             }
         } catch {
-            // Network failure (offline, CORS, etc.)
             errEl.textContent = '// ERROR: network failure — check your connection';
             btn.textContent   = '$ send --message';
             btn.disabled      = false;
